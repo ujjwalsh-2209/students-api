@@ -14,13 +14,13 @@ type HTTPServer struct {
 
 // env-default:"production"
 
-type config struct {
+type Config struct {
 	Env         string `yaml:"env" env:"ENV" env-required:"true"`
 	StoragePath string `yaml:"storage_path" env-required:"true"`
 	HTTPServer  `yaml:"http_server"`
 }
 
-func MustLoad() *config {
+func MustLoad() *Config {
 	var configPath string
 
 	configPath = os.Getenv("CONFIG_PATH")
@@ -41,7 +41,7 @@ func MustLoad() *config {
 		log.Fatalf("config file does not exist: %s", configPath)
 	}
 
-	var cfg config
+	var cfg Config
 
 	err := cleanenv.ReadConfig(configPath, &cfg)
 
